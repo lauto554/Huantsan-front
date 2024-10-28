@@ -1,8 +1,19 @@
 import { useEffect, useState } from 'react';
+import { GiMountains, GiMountaintop } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMountainSubmenuVisible, setIsMountainSubmenuVisible] = useState(false);
+  const [isTrekkingSubmenuVisible, setIsTrekkingSubmenuVisible] = useState(false);
+
+  const handleMountainClick = () => {
+    setIsMountainSubmenuVisible(!isMountainSubmenuVisible);
+  };
+
+  const handleTrekkingClick = () => {
+    setIsTrekkingSubmenuVisible(!isTrekkingSubmenuVisible);
+  };
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -42,46 +53,93 @@ export default function Header() {
           Home
         </Link>
 
-        <div className="relative group h-full">
-          <Link
-            to={'/'}
-            className={`flex items-center h-full text-white text-xl font-medium hover:text-sky-300 transition ${
+        <div className="relative group h-full p-2">
+          <span
+            className={`flex items-center h-full text-white text-xl font-medium hover:cursor-default hover:text-sky-300 transition ${
               isScrolled ? 'hover:text-sky-400' : ''
             }`}
           >
             Expeditions
-          </Link>
+          </span>
           <div
-            className={`absolute hidden group-hover:block group-hover:w-48 bg-slate-800 transition-all rounded-b-sm  shadow-lg left-0 ${
+            className={`absolute hidden group-hover:block group-hover:w-60 bg-slate-800 transition-all rounded-b-sm shadow-lg left-0 ${
               isScrolled ? 'top-12' : 'top-14 delay-100'
             }`}
           >
             <ul>
               <li>
-                <Link to="/" className="block px-4 py-2 text-white hover:text-sky-300 transition">
+                <Link
+                  to="#"
+                  className="block px-4 py-2 text-white hover:text-sky-300 transition"
+                  onClick={handleMountainClick}
+                >
                   Mountain Ascents
                 </Link>
+                {isMountainSubmenuVisible && (
+                  <ul className="pl-4">
+                    <li>
+                      <Link
+                        to="/"
+                        className="flex items-center px-4 py-2 text-white hover:text-sky-300 transition"
+                      >
+                        <GiMountaintop className="inline mr-2 w-6 h-6" />
+                        Aconcagua
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </li>
               <li>
-                <Link to="/" className="block px-4 py-2 text-white hover:text-sky-300 transition">
+                <Link
+                  to="#"
+                  className="block px-4 py-2 text-white hover:text-sky-300 transition"
+                  onClick={handleTrekkingClick}
+                >
                   Trekking
                 </Link>
-              </li>
-              <li>
-                <Link to="/" className="block px-4 py-2 text-white hover:text-sky-300 transition">
-                  Rock Climbing
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="block px-4 py-2 text-white hover:text-sky-300 transition">
-                  Daily trekkings
-                </Link>
+                {isTrekkingSubmenuVisible && (
+                  <ul className="pl-4">
+                    <li>
+                      <Link
+                        to="/"
+                        className="flex items-center  px-4 py-2 text-white hover:text-sky-300 transition"
+                      >
+                        <GiMountains className="inline mr-2 w-6 h-6" />
+                        Cordillera Huayhuash
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/"
+                        className="flex items-center  px-4 py-2 text-white hover:text-sky-300 transition"
+                      >
+                        <GiMountains className="inline mr-2 w-6 h-6" />
+                        Cordillera Blanca
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="relative group h-full">
+        {/*  */}
+
+        <Link to={'/'} className="text-white text-xl  font-medium hover:text-sky-300 transition">
+          Blog
+        </Link>
+
+        <Link to={'/'} className="text-white text-xl  font-medium hover:text-sky-300 transition">
+          Contact
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+/*
+<div className="relative group h-full">
           <Link
             to={'/'}
             className={`flex items-center h-full text-white text-xl  font-medium hover:text-sky-300 transition ${
@@ -125,14 +183,4 @@ export default function Header() {
           </div>
         </div>
 
-        <Link to={'/'} className="text-white text-xl  font-medium hover:text-sky-300 transition">
-          Blog
-        </Link>
-
-        <Link to={'/'} className="text-white text-xl  font-medium hover:text-sky-300 transition">
-          Contact
-        </Link>
-      </div>
-    </header>
-  );
-}
+        */

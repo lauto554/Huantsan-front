@@ -4,7 +4,7 @@ import Carrousel from '../components/Carrousel';
 export default function HomeView() {
   return (
     <>
-      <div className="max-w-screen">
+      <div className="w-full">
         <Carrousel />
       </div>
 
@@ -40,7 +40,19 @@ export default function HomeView() {
         </motion.div>
       </div>
 
-      <div className="h-screen bg-white"></div>
+      <div className="flex w-full h-[500px] p-4 gap-5 bg-slate-500">
+        <div className="w-full h-full bg-white overflow-hidden">
+          <img src="/carrousel/Main-01.jpg" alt="" className="" />
+        </div>
+        <div className="w-full h-full bg-white overflow-hidden">
+          <img src="/carrousel/juansin.jpg" alt="" className="" />
+        </div>
+        <div className="w-full h-full bg-white overflow-hidden">
+          <img src="/carrousel/partners.jpg" alt="" className="" />
+        </div>
+      </div>
+
+      <div className="h-screen bg-neutral-300"></div>
     </>
   );
 }
