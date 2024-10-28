@@ -20,6 +20,9 @@ export default function Carrousel() {
         <img src="/carrousel/Main-03.jpg" alt="Slide 3" />
       </div>
       <div>
+        <img src="/carrousel/aconcagua.jpg" alt="Slide 1" />
+      </div>
+      <div>
         <img src="/carrousel/Main-06.jpg" alt="Slide 6" />
       </div>
       <div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Carrousel from '../components/Carrousel';
+import CarrouselLogos from '../components/CarrouselLogos';
 
 export default function HomeView() {
   return (
@@ -41,15 +42,20 @@ export default function HomeView() {
       </div>
 
       <div className="flex w-full h-[500px] p-4 gap-5 bg-slate-500">
-        <div className="w-full h-full bg-white overflow-hidden">
-          <img src="/carrousel/Main-01.jpg" alt="" className="" />
-        </div>
-        <div className="w-full h-full bg-white overflow-hidden">
-          <img src="/carrousel/juansin.jpg" alt="" className="" />
-        </div>
-        <div className="w-full h-full bg-white overflow-hidden">
+        <div className="w-full h-full bg-white overflow-hidden hover:-translate-y-2 duration-150">
           <img src="/carrousel/partners.jpg" alt="" className="" />
         </div>
+        <div className="w-full h-full bg-white overflow-hidden hover:-translate-y-2 duration-150">
+          <img src="/carrousel/Main-01.jpg" alt="" className="" />
+        </div>
+        <div className="w-full h-full bg-white overflow-hidden hover:-translate-y-2 duration-150">
+          <img src="/carrousel/juansin.jpg" alt="" className="" />
+        </div>
+      </div>
+
+      <div className="w-full my-10">
+        <p className="text-5xl font-semibold mx-10 mb-10">Nos acompaña:</p>
+        <CarrouselLogos />
       </div>
 
       <div className="h-screen bg-neutral-300"></div>
