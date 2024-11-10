@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 flex flex-col shadow-lg z-30 bg-sky-800 max-w-screen transition-all duration-300 ${
+      className={`sticky top-0 flex flex-col shadow-lg z-30 bg-azul max-w-screen transition-all duration-300 ${
         isScrolled ? 'h-[90px]' : 'h-24'
       }`}
     >
@@ -65,13 +65,13 @@ export default function Header() {
           <div className="relative group h-full p-2">
             <span
               className={`flex items-center h-full text-white text-xl font-medium hover:cursor-default hover:text-amber-400 transition ${
-                isScrolled ? 'hover:text-sky-400' : ''
+                isScrolled ? 'hover:text-amber-400' : ''
               }`}
             >
               Expediciones
             </span>
             <div
-              className={`absolute hidden group-hover:block group-hover:w-60 bg-sky-800 transition-all rounded-b-sm shadow-lg left-0 ${
+              className={`absolute hidden group-hover:block group-hover:w-60 bg-azul transition-all rounded-b-sm shadow-lg left-0 ${
                 isScrolled ? 'top-12' : 'top-14 delay-100'
               }`}
             >

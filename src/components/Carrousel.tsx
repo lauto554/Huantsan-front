@@ -1,10 +1,10 @@
-import Slider from 'react-slick';
+import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
 
 export default function Carrousel() {
-  const settings = {
+  const settings: Settings = {
     dots: true, // Muestra los puntos de navegación inferiores
     infinite: true, // Habilita el efecto de bucle
     speed: 2000,
@@ -14,7 +14,37 @@ export default function Carrousel() {
     autoplaySpeed: 5000, // Cada 3 segundos
     arrows: true, // Flechas de navegación
     fade: true,
+    nextArrow: <SampleNextArrow />, // Componentes personalizados para flechas
+    prevArrow: <SamplePrevArrow />,
   };
+
+  interface ArrowProps {
+    className?: string;
+    style?: React.CSSProperties;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+  }
+
+  function SampleNextArrow(props: ArrowProps) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: 'block', right: '10px', zIndex: 30 }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props: ArrowProps) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: 'block', left: '10px', zIndex: 30 }}
+        onClick={onClick}
+      />
+    );
+  }
 
   return (
     <div className="relative">

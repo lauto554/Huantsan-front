@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import Carrousel from '../components/Carrousel';
 import CarrouselLogos from '../components/CarrouselLogos';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { scroller } from 'react-scroll';
 
 export default function HomeView() {
   const images = [
@@ -10,14 +12,38 @@ export default function HomeView() {
     { src: 'ANT-1.jpg', epilogue: 'Queen Maud, Antarctica' },
   ];
 
+  useEffect(() => {
+    // Detecta el scroll y hace scroll a la siguiente sección
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('.section');
+      for (let i = 0; i < sections.length; i++) {
+        if (window.scrollY + window.innerHeight >= (sections[i] as HTMLElement).offsetTop) {
+          // Hacer scroll hacia la siguiente sección cuando el usuario hace scroll
+          scroller.scrollTo(sections[i + 1]?.id || sections[i].id, {
+            smooth: true,
+            offset: -70,
+          });
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <div className="w-full">
+      {/* Sección "Carrousel" */}
+      <div id="Carrousel" className="section w-full h-full">
         <Carrousel />
       </div>
 
       {/* Sección "¿Quiénes Somos?" */}
-      <div className="h-screen bg-topography flex items-center justify-center">
+      <div
+        id="QuienesSomos"
+        className="section h-screen bg-topography flex items-center justify-center"
+      >
         <motion.div
           className="flex flex-col items-center max-w-4xl mx-auto px-6 py-12 bg-slate-900 bg-opacity-70 rounded-lg shadow-xl"
           initial={{ opacity: 0, x: 300 }}
@@ -49,7 +75,7 @@ export default function HomeView() {
       </div>
 
       {/* Sección "Imagenes" */}
-      <div className="flex w-full h-[600px] p-4 gap-5 bg-slate-500">
+      <div id="Imagenes" className="section flex w-full h-[600px] p-4 gap-5 bg-slate-500">
         {images.map((image, index) => (
           <div
             key={index}
@@ -66,7 +92,7 @@ export default function HomeView() {
       </div>
 
       {/* Sección "Que ofrecemos" */}
-      <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-slate-700">
+      <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-slate-500">
         <div className="flex gap-2">
           <span className="text-3xl">⛰</span>
           <h2 className="text-3xl font-semibold text-white mb-4">
@@ -120,14 +146,33 @@ export default function HomeView() {
         </div>
       </div>
 
-      {/* Sección "Link a Expediciones" */}
-      <div className="flex w-full h-[300px] items-center justify-center">
-        <p className="text-5xl font-light italic text-gray-600">
-          "Tu próxima aventura comienza con nosotros"
-        </p>
+      {/* Sección "Frase" */}
+      <div className="grid grid-cols-[2fr_1fr_2fr] grid-rows-3 w-full h-screen bg-snow-texture pt-16">
+        <div className="flex items-end justify-end col-start-1 row-start-1 text-right">
+          <p className="text-5xl font-semibold font-custom italic text-gray-600">
+            <span className="text-orange-500 text-6xl">T</span>
+            <span>u aventura</span>
+          </p>
+        </div>
+
+        <div className="flex items-start justify-center col-start-2 row-start-2 pt-4">
+          <p className="text-5xl font-semibold font-custom italic text-gray-600">comienza</p>
+        </div>
+
+        <div className="flex items-center justify-start col-start-3 row-start-2 pb-4">
+          <p className="text-5xl font-semibold font-custom italic text-gray-600">
+            con {''}
+            <span className="underline underline-offset-4 decoration-orange-500 decoration-4 ">
+              nosotros
+            </span>
+            .
+          </p>
+        </div>
       </div>
 
+      {/* Sección "Link a Expediciones" */}
       <div className="w-full h-full bg-slate-800">
+        <p className="text-3xl font-semibold text-white ml-5 py-2">Próximas salidas:</p>
         <div className="flex w-full h-[400px] p-8 mx-auto text-white">
           <Link to={'/expeditions'} className="w-3/5 h-full mr-8 relative overflow-hidden">
             <img
@@ -209,11 +254,110 @@ export default function HomeView() {
         <CarrouselLogos />
       </div>
 
-            <div className="w-full h-screen flex items-center justify-center bg-neutral-300">
+      {/* Sección "Contacto" */}
+      <div className="w-full h-[140vh] flex items-center justify-center bg-neutral-300 relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/img/aconcaguamega.jpg)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+          }}
+        ></div>
 
-<p className="text-6xl"> Formulario de Contacto</p>
+        <div className="relative bg-white rounded-lg shadow-lg p-10 max-w-xl w-full mx-4">
+          <form onSubmit={() => {}}>
+            <h2 className="text-5xl font-bold text-left text-gray-800 mb-5">Contacto</h2>
 
+            <div className="w-3/5 h-0.5 rounded bg-gray-700 mb-5"></div>
+
+            <p className="text-gray-600 text-left mb-3">
+              Si estas interesado en vivir una experiencia única e inovidable, nosotros sabemos como
+              acompañarte para que lo logres.
+            </p>
+            <p className="text-gray-600 text-left mb-6">
+              Llena el siguiente formulario, y estaremos encantados de ayudarte a llevar a cabo tu
+              próxima gran aventura.
+            </p>
+
+            {/* Inputs de nombre y apellido */}
+            <div className="flex space-x-4 mb-4">
+              <div className="w-1/2">
+                <label htmlFor="firstName" className="block text-gray-700 mb-2">
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-300 focus:border-2"
+                />
+              </div>
+              <div className="w-1/2">
+                <label htmlFor="lastName" className="block text-gray-700 mb-2">
+                  Apellido
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-300 focus:border-2"
+                />
+              </div>
             </div>
+
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-300 focus:border-2"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="phone" className="block text-gray-700 mb-2">
+                Teléfono
+              </label>
+              <input
+                type="text"
+                id="phone"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-300 focus:border-2"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="country" className="block text-gray-700 mb-2">
+                ¿De dónde eres?
+              </label>
+              <input
+                type="text"
+                id="country"
+                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-300 focus:border-2"
+              />
+            </div>
+
+            <div className="mb-6">
+              <label htmlFor="comments" className="block text-gray-700 mb-2">
+                Cualquier duda o consulta que tengas!:
+              </label>
+              <textarea
+                id="comments"
+                className="w-full border border-gray-300 rounded px-3 py-2 h-32 resize-none focus:outline-none focus:border-blue-300 focus:border-2"
+              ></textarea>
+            </div>
+
+            {/* Botón de Enviar */}
+            <div className="text-center">
+              <input
+                type="submit"
+                value="Enviar"
+                className="w-full bg-indigo-500 text-white font-bold py-2 rounded hover:bg-indigo-600 transition duration-200 cursor-pointer"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 }
